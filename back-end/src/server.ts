@@ -1,24 +1,15 @@
-import express, {Request, Response} from 'express'
+import express from 'express'
 import http from 'http'
 import bodyParser from 'body-parser'
 
 const path = require('path')
-// const adminRouter = require('./routes/admin')
-// const shopRouter = require('./routes/shop')
+const adminRouter = require('./routes/AdminRoute')
 
 const app = express()     
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static(path.join(__dirname, 'public')))
-// app.use(adminRouter)
-// app.use(shopRouter)
+app.use(adminRouter)
 
-app.use((req: Request, res: Response)=>{
-  res.status(200).send('Bem-vindo ao servidor Node.js com TypeScript!');
-})
-
-app.use((req: Request, res: Response)=>{
- res.status(401).sendFile(path.join(__dirname, 'views', '404.html'))
-})
 
 const server = http.createServer(app)
 server.listen('3001', (): void =>{

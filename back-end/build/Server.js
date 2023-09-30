@@ -1,0 +1,18 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const http_1 = __importDefault(require("http"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const path = require('path');
+const adminRouter = require('./routes/AdminRoute');
+const app = (0, express_1.default)();
+app.use(body_parser_1.default.urlencoded({ extended: false }));
+app.use(express_1.default.static(path.join(__dirname, 'public')));
+app.use(adminRouter);
+const server = http_1.default.createServer(app);
+server.listen('3001', () => {
+    console.log("Server running!");
+});
